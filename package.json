@@ -19,7 +19,7 @@
     "debug": "~2.0.0",
     "ejs": "~0.8.5",
     "mongodb": "*",
-    "monk": "*"
+    "mongoose": ">=2.7.0"
   },
   "main": "app.js"
 }

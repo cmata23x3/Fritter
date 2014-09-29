@@ -9,6 +9,17 @@ var users = require('./routes/users');
 
 var app = express();
 
+var dbURL = 'localhost/fritter';
+
+if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+  dbURL = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ':' +
+          process.env.OPENSHIFT_MONGODB_DB_PASSWORD + '@' +
+          process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+          process.env.OPENSHIFT_MONGODB_DB_PORT + '/fritter';
+}
+
+var db = require('mongoose').connect(dbURL);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -54,7 +65,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
+console.log('Its running on: ', (process.env.OPENSHIFT_NODEJS_PORT || 8080));
 module.exports = app;
 
 app.listen(process.env.OPENSHIFT_NODEJS_PORT || 8080,
