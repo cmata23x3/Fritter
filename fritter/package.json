@@ -1,10 +1,15 @@
 {
   "name": "fritter",
   "version": "0.0.0",
+  "description": "6.170 Project 2 app",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
+  "repository":{
+    "type": "git",
+    "url": "https://github.com/6170-fa14/cmata_proj2"
+    },
   "dependencies": {
     "express": "~4.9.0",
     "body-parser": "~1.8.1",
