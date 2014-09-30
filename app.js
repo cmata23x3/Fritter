@@ -36,8 +36,13 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('secret'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(express.session({
+  secret: 'secret',
+  maxAge: 3600000
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,6 +55,9 @@ passport.serializeUser(function(user, done) {
 });
  
 passport.deserializeUser(function(user, done) {
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
   done(null, user);
 });
 
