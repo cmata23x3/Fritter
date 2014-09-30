@@ -64,7 +64,7 @@ router.post('/new', function(req, res){
         }
         else{    
             res.send('Successfully Inserted');
-            res.redirect('/userlist');
+            // res.redirect('/userlist');
         }
     });
 });

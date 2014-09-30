@@ -39,10 +39,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser('secret'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.session({
-  secret: 'secret',
-  maxAge: 3600000
-}));
+// app.use(express.session({
+//   secret: 'secret',
+//   maxAge: 3600000
+// }));
 
 app.use(passport.initialize());
 app.use(passport.session());
