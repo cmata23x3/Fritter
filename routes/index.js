@@ -1,17 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
-//mongoose
-var mongoose = require('mongoose');
-
-var UserSchema = new mongoose.Schema({
-    username: {type: String, required:true, unique:true}, 
-    name: String,
-    password: String
-});
-
-var User = mongoose.model('User', UserSchema);
-//done
+var passport = require('passport');
+var User = require('../data/models/users.js');
 
 /* GET home page. */
 router.get('/', function(req, res) {
@@ -20,42 +10,61 @@ router.get('/', function(req, res) {
 
 /* GET login page*/
 router.get('/login', function(req, res){
-	res.render('./partials/form', {
-		title: "Login",
-		action: "/login",
-		fields: [
-		{name:'username', type:String, property:'required'},
-		{name:'password', type:String, property:'required'}
-		]
-	});
+    res.render('login', {title: 'Log In'});
+});
+
+router.post('/login',
+  passport.authenticate('local', {
+    successRedirect: '/loginSuccess',
+    failureRedirect: '/loginFailure'
+  })
+);
+ 
+router.get('/loginFailure', function(req, res, next) {
+  res.send('Failed to authenticate');
+});
+ 
+router.get('/loginSuccess', function(req, res, next) {
+  res.send('Successfully authenticated');
 });
 
 /* GET Userlist page. */
 router.get('/userlist', function(req, res) {
-    var collection = req.db.collection('usercollection');
-    collection.find({},{},function(err,docs){
-        console.log(docs.toArray());
-        res.render('userlist', {
+    // var collection = req.db.collection('usercollection');
+    User.find({},function(err,docs){
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.render('userlist', {
             "title": "Users List",
-            "userlist" : docs.toArray()
-        });
+            "userlist" : docs
+            });
+        }
     });
 });
 
+/* GET View Data */
+router.get('/view', function(req, res){
+    User.find({}, function(err, docs){
+        if(err) res.json(err);
+        else    res.render('/')
+    })
+})
+
+/* POST new User data */
 router.post('/new', function(req, res){
-    console.log(User);
     var use = new User({
         username: req.body.username,
         name: req.body.name,
         password: req.body.password
-    })
-    console.log(use);
-    use.save(function(err, doc){
+    }).save(function(err, doc){
         if(err){
             res.json(err);
         }
         else{    
             res.send('Successfully Inserted');
+            res.redirect('/userlist');
         }
     });
 });

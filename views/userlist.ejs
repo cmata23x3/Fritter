@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1>User List</h1>
-    <ul>
-    <% userlist.forEach(function(user){ %>
-    	<li> <%= user.username %> </li>
-	<% }) %>
-    </ul>
-  </body>
+<head>
+	<% include partials/head.ejs %>
+	<title><%= title %></title>
+</head>
+<body>
+	<% include partials/header.ejs %>
+	<h1>User List</h1>
+	<ul>
+		<% userlist.forEach(function(user){ %>
+		<li><%= user.username %> - <i><%= user.name %> </i></li>
+		<% }) %>
+	</ul>
+	<% include partials/footer.ejs %>
+	<% include partials/jsdefaults.ejs %>
+</body>
 </html>
