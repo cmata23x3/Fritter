@@ -1,11 +1,24 @@
 var express = require('express');
 var router = express.Router();
 
+//mongoose
+var mongoose = require('mongoose');
+
+var UserSchema = new mongoose.Schema({
+    username: {type: String, required:true, unique:true}, 
+    name: String,
+    password: String
+});
+
+var User = mongoose.model('User', UserSchema);
+//done
+
 /* GET home page. */
 router.get('/', function(req, res) {
   res.render('index', { title: 'Fritter' });
 });
 
+/* GET login page*/
 router.get('/login', function(req, res){
 	res.render('./partials/form', {
 		title: "Login",
@@ -20,12 +33,30 @@ router.get('/login', function(req, res){
 /* GET Userlist page. */
 router.get('/userlist', function(req, res) {
     var collection = req.db.collection('usercollection');
-    collection.find({},{},function(e,docs){
-        console.log("in the callback");
+    collection.find({},{},function(err,docs){
+        console.log(docs.toArray());
         res.render('userlist', {
             "title": "Users List",
-            "userlist" : docs
+            "userlist" : docs.toArray()
         });
+    });
+});
+
+router.post('/new', function(req, res){
+    console.log(User);
+    var use = new User({
+        username: req.body.username,
+        name: req.body.name,
+        password: req.body.password
+    })
+    console.log(use);
+    use.save(function(err, doc){
+        if(err){
+            res.json(err);
+        }
+        else{    
+            res.send('Successfully Inserted');
+        }
     });
 });
 

@@ -7,9 +7,9 @@
   <body>
     <h1>User List</h1>
     <ul>
-    <% for(var i = 0; i<userlist.length; ++i){ console.log("This is i:", i, userlist[i]) %>
-    	<li> <a href="#"><%= userlist[i].username %></a></li>
-    <% } %>
+    <% userlist.forEach(function(user){ %>
+    	<li> <%= user.username %> </li>
+	<% }) %>
     </ul>
   </body>
 </html>

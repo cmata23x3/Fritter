@@ -9,7 +9,7 @@ var users = require('./routes/users');
 
 var app = express();
 
-var dbURL = 'mongodb://localhost:27017/fritter';
+var dbURL = 'mongodb://localhost/fritter';
 
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
   dbURL = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ':' +
@@ -35,12 +35,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Make our db accessible to our router
-app.use(function(req,res,next){
-    req.db = db;
-    next();
-});
 
 app.use('/', routes);
 app.use('/users', users);
