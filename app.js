@@ -9,7 +9,7 @@ var users = require('./routes/users');
 
 var app = express();
 
-var dbURL = 'localhost/fritter';
+var dbURL = 'mongodb://localhost:27017/fritter';
 
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
   dbURL = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ':' +
@@ -18,18 +18,29 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
           process.env.OPENSHIFT_MONGODB_DB_PORT + '/fritter';
 }
 
-var db = require('mongoose').connect(dbURL);
+var mongoose = require('mongoose').connect(dbURL);
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Mongoose connection error'));
+// db.once('once', function callback(){
+//
+// })
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Make our db accessible to our router
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
 
 app.use('/', routes);
 app.use('/users', users);
