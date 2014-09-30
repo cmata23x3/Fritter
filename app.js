@@ -25,9 +25,6 @@ var mongoose = require('mongoose').connect(dbURL);
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Mongoose connection error'));
-// db.once('once', function callback(){
-//   console.log('Connected to DB');
-// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
