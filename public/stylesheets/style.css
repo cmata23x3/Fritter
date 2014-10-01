@@ -6,12 +6,13 @@ a {
   color: #00B7FF;
 }
 
-#loginFormContainer{
+#signUpFormContainer{
 	margin: 0 auto;
 	max-width: 250px;
+	margin-bottom: 15px;
 }
 
-#signUpFormContainer{
+#loginFormContainer{
 	margin: 0 auto;
 	max-width: 250px;
 }

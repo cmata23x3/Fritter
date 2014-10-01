@@ -3,28 +3,30 @@
 <html lang="en">
 <head><% include partials/head.ejs %></head>
 <body>
-  <% include partials/header.ejs %>
-  <div class="container">
-    <div id="loginFormContainer">
-      <h1><%= title %></h1>
-      
-      <form action="/login" method="POST">
-        <div class="form-group">
-          <label>Username:</label>
-          <input type="text" name="username" placeholder="Enter username" class="form-control"/>
-        </div>
-        <div class="form-group">
-          <label>Password:</label>
-          <input type="password" name="password" placeholder="Password" class="form-control"/>
-        </div>
-        <div>
-          <button type="submit" class="btn btn-default">Log In</button>
-        </div>
-      </form>
-    </div>
-  </div>
+	<% include partials/header.ejs %>
+	<div class="container">
+		<%  %>
 
-  <% include partials/footer.ejs %>
-  <% include partials/jsdefaults.ejs %>
+		<div id="loginFormContainer">
+			<h1><%= title %></h1>
+			
+			<form action="/login" method="POST">
+				<div class="form-group">
+					<label>Username:</label>
+					<input type="text" name="username" placeholder="Enter username" class="form-control" required/>
+				</div>
+				<div class="form-group">
+					<label>Password:</label>
+					<input type="password" name="password" placeholder="Password" class="form-control" required/>
+				</div>
+				<div>
+					<button type="submit" class="btn btn-default">Log In</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<% include partials/footer.ejs %>
+	<% include partials/jsdefaults.ejs %>
 </body>
 </html>
