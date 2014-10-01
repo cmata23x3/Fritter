@@ -33,14 +33,32 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser('secret'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ 
-	resave: true,
-	saveUninitialized: true,
-	secret: '$ecRe7',
-	store: new MongoStore({
-		db : "fritter"
-	}) 
-}));
+if (app.get('env') === 'development') {
+	console.log("using if");
+	app.use(session({ 
+		resave: true,
+		saveUninitialized: true,
+		secret: '$ecRe7',
+		store: new MongoStore({
+			db : "fritter"
+		}) 
+	}));
+}
+else{
+	console.log("using else");
+	app.use(session({ 
+		resave: true,
+		saveUninitialized: true,
+		secret: '$ecRe7',
+		store: new MongoStore({
+			db: "fritter"
+			username: process.env.OPENSHIFT_MONGODB_DB_USERNAME,
+			password: process.env.OPENSHIFT_MONGODB_DB_PASSWORD,
+			host: process.env.OPENSHIFT_MONGODB_DB_HOST,
+			port: process.env.OPENSHIFT_MONGODB_DB_PORT
+		}) 
+	}));
+}
 app.use(flash());
 
 app.use('/', routes);
