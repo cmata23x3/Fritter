@@ -18,7 +18,7 @@ router.post('/new', function(req, res){
             res.json(err);
         }
         else{    
-            res.redirect('./list');
+            res.redirect('../home');
         }
     });
 });

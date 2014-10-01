@@ -36,22 +36,26 @@ router.post('/login', function(req, res){
   })
 });
 
-router.delete('/sessions', function(req, res){
+router.post('/logout', function(req, res){
 	req.session.destroy();
 	res.redirect('/');
 });
 
 router.get('/home', function(req, res) {
     // var collection = req.db.collection('usercollection');
-    Tweets.find({}, function(err, docs){
+    Tweets
+    .find({})
+    .populate('creator', 'username')
+    .exec(function(err, tweets){
         if(err){
+        	console.log('Error in tweets');
             res.json(err);
         }
         else{
             res.render('home', {
             "title": "Home",
             "name": req.session.user,
-            "tweets": docs
+            "tweets": tweets
             });
         }
     });

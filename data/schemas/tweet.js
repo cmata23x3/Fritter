@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 
 var TweetSchema = new mongoose.Schema({
-	_id: Number,
-	name: {type: String, ref: 'User'},
+	creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
 	body: String,
 	date: { type: Date, default: Date.now }
 });
