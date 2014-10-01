@@ -51,7 +51,7 @@ else{
 		saveUninitialized: true,
 		secret: '$ecRe7',
 		store: new MongoStore({
-			db: "fritter"
+			db: "fritter",
 			username: process.env.OPENSHIFT_MONGODB_DB_USERNAME,
 			password: process.env.OPENSHIFT_MONGODB_DB_PASSWORD,
 			host: process.env.OPENSHIFT_MONGODB_DB_HOST,
