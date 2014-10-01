@@ -2,11 +2,6 @@ var express = require('express');
 var router = express.Router();
 var User = require('../data/models/users.js');
 
-/* GET users listing. */
-router.get('/', function(req, res) {
-  res.send('respond with a resource');
-});
-
 /* POST new User data */
 router.post('/new', function(req, res){
     var use = new User({
@@ -15,7 +10,7 @@ router.post('/new', function(req, res){
         password: req.body.password
     }).save(function(err, doc){
         if(err){
-            res.json(err);
+            console.log("error on new user creation: ", err);
         }
         else{    
             res.redirect('../home');

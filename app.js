@@ -4,6 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var MongoStore = require('connect-mongo');
 var flash = require('connect-flash');
 
 var routes = require('./routes/index');
@@ -32,9 +33,25 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser('secret'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ resave: true,
+if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+	app.use(session({ 
+		store: new MongoStore({
+			db: 'fritter',
+			host: process.env.OPENSHIFT_MONGODB_DB_HOST,
+			port: process.env.OPENSHIFT_MONGODB_DB_PORT
+		}),
+		resave: true,
+		saveUninitialized: true,
+		secret: '$ecRe7' 
+	}));
+}
+else{
+	app.use(session({ 
+	resave: true,
 	saveUninitialized: true,
-	secret: '$ecRe7' }));
+	secret: '$ecRe7' 
+}));
+}
 app.use(flash());
 
 app.use('/', routes);

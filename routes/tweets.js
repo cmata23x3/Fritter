@@ -3,7 +3,7 @@ var router = express.Router();
 var User = require('../data/models/users.js');
 var Tweet = require('../data/models/tweets.js');
 
-/* POST new User data */
+/* POST new Tweet data */
 router.post('/new', function(req, res){
 	console.log(req.session.user);
 	User.findOne({'username': req.session.user, }, function(err, user){
