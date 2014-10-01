@@ -11,8 +11,10 @@ router.post('/new', function(req, res){
     }).save(function(err, doc){
         if(err){
             console.log("error on new user creation: ", err);
+            res.redirect('../login');
         }
         else{    
+            req.session.user = doc.username;
             res.redirect('../home');
         }
     });
