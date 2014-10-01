@@ -44,8 +44,7 @@ router.post('/logout', Auth.isAuthenticated, function(req, res){
 
 router.get('/home', Auth.isAuthenticated, function(req, res) {
 	Tweets
-    .find({})
-    .sort({time: -1})
+    .find({query: {}, $orderby: {date: -1}})
     .populate('creator', 'username')
     .exec(function(err, tweets){
         if(err){
