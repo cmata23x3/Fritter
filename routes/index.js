@@ -2,19 +2,20 @@ var express = require('express');
 var router = express.Router();
 var User = require('../data/models/users.js');
 var Tweets = require('../data/models/tweets.js');
+var Auth = require('../util/auth.js');
 
-/* GET home page. */
-router.get('/', function(req, res) {
+/* GET root page. */
+router.get('/', Auth.isNotAuthenticated, function(req, res) {
   res.render('index', { title: 'Fritter' });
 });
 
 /* GET login page*/
-router.get('/login', function(req, res){
-	res.render('login', {title: 'Log In'});
+router.get('/login', Auth.isNotAuthenticated, function(req, res){
+	res.render('login', {title: 'Log In', message: undefined});
 });
 
 /*POST login page */
-router.post('/login', function(req, res){
+router.post('/login', Auth.isNotAuthenticated, function(req, res){
 	var username = req.body.username;
 	var pwrd = req.body.password; 
 	User.findOne({'username': username, }, function(err, user){
@@ -36,15 +37,15 @@ router.post('/login', function(req, res){
   })
 });
 
-router.post('/logout', function(req, res){
+router.post('/logout', Auth.isAuthenticated, function(req, res){
 	req.session.destroy();
 	res.redirect('/');
 });
 
-router.get('/home', function(req, res) {
-    // var collection = req.db.collection('usercollection');
-    Tweets
+router.get('/home', Auth.isAuthenticated, function(req, res) {
+	Tweets
     .find({})
+    .sort({time: -1})
     .populate('creator', 'username')
     .exec(function(err, tweets){
         if(err){
@@ -58,7 +59,7 @@ router.get('/home', function(req, res) {
             "tweets": tweets
             });
         }
-    });
+	});
 });
 
 module.exports = router;

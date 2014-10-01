@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../data/models/users.js');
+var Auth = require('../util/auth.js');
 
 /* POST new User data */
-router.post('/new', function(req, res){
+router.post('/new', Auth.isNotAuthenticated, function(req, res){
     var use = new User({
         username: req.body.username,
         name: req.body.name,
