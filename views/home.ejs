@@ -20,10 +20,18 @@
 			<h3>Tweet Feed</h3>
 			<% tweets.forEach(function(tweet){ %>
 			<li>
-				<div> 
-					<%= tweet.creator.username %> - <i><%= tweet.date %> </i> 
+				<div class="tweetContainer"> 
+					<span><%= tweet.creator.username %> - <i><%= tweet.date %> </i> 
 					<%= tweet.body %>
-				</div>
+					<% if(name === tweet.creator.username){ %></span> 
+					<form action="/tweets/delete" method="POST" >
+						<div class="input-group">
+							<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/> 
+							<button type="submit" class="btn btn-default">Delete</button>
+						</div>
+					</form>
+					<% } %>
+				</div> <!-- Tweet Container -->
 			</li>
 			<% }) %>
 		</div> <!-- Tweet Feed -->

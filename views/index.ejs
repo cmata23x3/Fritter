@@ -20,28 +20,14 @@
 					<label for="password">Password: </label>
 					<input type="password" name="password" class="form-control" required/>
 				</div>
-				<div>
-					<button type="submit" class="btn btn-default">Sign Up</button>
+				<div >
+					<button type="submit" id="submitButton" class="btn btn-default">Sign Up</button>
+				</div>
+				<div id="login">
+					<span>If you're already a user login </span><a href="/login">here</a>.
 				</div>
 			</form>
 		</div> <!--  Sign Up Form -->
-		<legend></legend>
-		<div id="loginFormContainer">
-			<h5>If you're already a Fritter, sign in</h5>
-			<form action="/login" method="POST">
-				<div class="form-group">
-					<label>User Name:</label>
-					<input type="text" name="username" placeholder="Enter username" class="form-control" required/>
-				</div>
-				<div class="form-group">
-					<label>Password:</label>
-					<input type="password" name="password" placeholder="Password" class="form-control" required/>
-				</div>
-				<div>
-					<button type="submit" class="btn btn-default">Log In</button>
-				</div>
-			</form>
-		</div> <!--  Log In Form -->
 	</div> <!-- Container -->
 
 	<% include partials/footer.ejs %>

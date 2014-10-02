@@ -23,4 +23,19 @@ router.post('/new', Auth.isAuthenticated, function(req, res){
 	});
 });
 
+router.post('/delete', Auth.isAuthenticated, function(req, res){
+	console.log(req.body);
+	Tweet.findOne({'_id': req.body.id, }, function(err, tweet){
+		console.log("This is the tweet found: ", tweet);
+		if(tweet){
+			Tweet.remove(tweet, function(err, doc){
+				res.redirect('../home');
+			})
+		}
+		else{
+			redirect('../home');
+		}
+	})
+});
+
 module.exports = router;

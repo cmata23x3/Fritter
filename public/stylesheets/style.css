@@ -9,10 +9,38 @@ a {
 #signUpFormContainer{
 	margin: 0 auto;
 	max-width: 250px;
-	margin-bottom: 15px;
 }
 
 #loginFormContainer{
 	margin: 0 auto;
 	max-width: 250px;
+}
+
+#login{
+	text-align: center;
+	margin: 10px;
+}
+
+#submitButton{
+	width: 100%;
+	/*background-color: rgb(150,150,10);*/
+}
+
+#submitButton:hover{
+	/*background-color: rgb(120,180,10);*/
+}
+
+.tweetContainer{
+	display: inline-block;
+	background-color: hsl(190, 100%, 70%);
+	max-width: 650px;
+	margin: 1px;
+	padding: 15px;
+	border-radius: 3px;
+}
+
+#tweetFeed{
+	margin: 0 auto;
+	max-width: 60%;
+	min-width: 300px;
 }
