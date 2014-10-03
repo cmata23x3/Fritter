@@ -6,12 +6,19 @@ var Auth = require('../util/auth.js');
 
 /* GET root page. */
 router.get('/', Auth.isNotAuthenticated, function(req, res) {
-  res.render('index', { title: 'Fritter' });
+  res.render('index', { 
+  	title: 'Fritter',
+  	user: null
+  });
 });
 
 /* GET login page*/
 router.get('/login', Auth.isNotAuthenticated, function(req, res){
-	res.render('login', {title: 'Log In', message: undefined});
+	res.render('login', {
+		title: 'Log In', 
+		message: undefined,
+		user: null
+	});
 });
 
 /*POST login page */
@@ -54,6 +61,7 @@ router.get('/home', Auth.isAuthenticated, function(req, res) {
         else{
             res.render('home', {
             "title": "Home",
+            "user": req.session.user,
             "name": req.session.user,
             "tweets": tweets
             });

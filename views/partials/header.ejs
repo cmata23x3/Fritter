@@ -16,10 +16,17 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
 				<!-- <li><a href="/login">Login</a></li> -->
-				<form action="/logout" method="POST" >
-					<input type="text" hidden/> 
-					<input type="submit" value="Log Out"/>
-				</form>
+				<% if ( user !== null) { %>
+					<form action="/logout" method="POST" >
+						<input type="text" hidden/> 
+						<button type="submit" id="headerSignButton" class="btn btn-default navbar-btn">Log Out</button>
+					</form>
+				<%} else { %> 
+					<form action="/login" method="POST" >
+						<input type="text" hidden/> 
+						<button type="submit" id="headerSignButton" class="btn btn-default navbar-btn">Log In</button>
+					</form>
+				<% } %>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</div><!-- /.container-fluid -->

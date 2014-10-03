@@ -21,26 +21,41 @@ a {
 	margin: 10px;
 }
 
-#submitButton{
+#headerSignButton{
 	width: 100%;
-	/*background-color: rgb(150,150,10);*/
+	background-color: #222;
+	color: #fff;
+	border: none;
 }
 
-#submitButton:hover{
-	/*background-color: rgb(120,180,10);*/
+#headerSignButton:hover{
+	background-color: #080808;
 }
 
 .tweetContainer{
-	display: inline-block;
 	background-color: hsl(190, 100%, 70%);
 	max-width: 650px;
-	margin: 1px;
+	margin: 5px;
 	padding: 15px;
 	border-radius: 3px;
+	box-shadow: 5px 5px 40px #ccc;
 }
 
 #tweetFeed{
 	margin: 0 auto;
 	max-width: 60%;
-	min-width: 300px;
+	min-width: 400px;
+}
+
+li{
+	list-style: none;
+}
+
+.editTweetArea{
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+	border-radius: 3px;
+	border-color: #adadad;
+	resize: none;
 }

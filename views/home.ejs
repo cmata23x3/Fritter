@@ -24,6 +24,13 @@
 					<span><%= tweet.creator.username %> - <i><%= tweet.date %> </i> 
 					<%= tweet.body %>
 					<% if(name === tweet.creator.username){ %></span> 
+					<form action="/tweets/edit" method="POST">
+						<div>
+							<!-- type="hidden" -->
+							<textarea class="editTweetArea" rows="3"><%= tweet.body %></textarea>
+							<button type="submit" class="btn btn-default">Submit</button>
+						</div> <!-- Closing div container-->
+					</form> <!-- Edit Form -->
 					<form action="/tweets/delete" method="POST" >
 						<div class="input-group">
 							<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/> 
