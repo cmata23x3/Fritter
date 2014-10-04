@@ -21,31 +21,30 @@
 			<% tweets.forEach(function(tweet){ %>
 			<li>
 				<div class="tweetContainer"> 
-					<span><%= tweet.creator.username %> - <i><%= tweet.date %> </i> 
-					<%= tweet.body %>
-					<% if(name === tweet.creator.username){ %></span> 
-					<form action="/tweets/edit" method="POST">
-						<div>
+					<p><span class=""><%= tweet.creator.username %></span> - <i><%= tweet.date %> </i> 
+						<%= tweet.body %> 
+					</p>
+						<% if(name === tweet.creator.username){ %>
+						<form action="/tweets/edit" method="POST" class="editForm">
 							<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/> 
 							<input class="form-control" value=<%=tweet.body%> name="body">
-							<button type="submit" class="btn btn-default">Submit</button>
-						</div> <!-- Closing div container-->
-					</form> <!-- Edit Form -->
-					<button class="btn btn-default left editButton" >Edit</button>
-					<form action="/tweets/delete" method="POST" >
-						<div class="input-group">
-							<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/> 
-							<button type="submit" class="btn btn-default left">Delete</button>
-						</div>
-					</form>
-					<% } %>
-				</div> <!-- Tweet Container -->
-			</li>
-			<% }) %>
-		</div> <!-- Tweet Feed -->
-	</div> <!-- Container -->
+							<button type="submit" class="btn btn-default submitEditButton left">Submit</button>
+						</form> <!-- Edit Form -->
+						<button class="btn btn-default editButton">Edit</button>
+						<form action="/tweets/delete" method="POST" class="deleteForm">
+							<div class="input-group">
+								<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/> 
+								<button type="submit" class="btn btn-default left">Delete</button>
+							</div>
+						</form>
+						<% } %>
+					</div> <!-- Tweet Container -->
+				</li>
+				<% }) %>
+			</div> <!-- Tweet Feed -->
+		</div> <!-- Container -->
 
-	<% include partials/footer.ejs %>
-	<% include partials/jsdefaults.ejs %>
-</body>
-</html>
+		<% include partials/footer.ejs %>
+		<% include partials/jsdefaults.ejs %>
+	</body>
+	</html>
