@@ -21,7 +21,8 @@
 			<% tweets.forEach(function(tweet){ %>
 			<li>
 				<div class="tweetContainer"> 
-					<p><span class=""><%= tweet.creator.username %></span> - <i><%= tweet.date %> </i> 
+					<p><span class="tweet-username"><%= tweet.creator.username %></span> - <i><%= tweet.date %> </i>
+						<br> 
 						<%= tweet.body %> 
 					</p>
 						<% if(name === tweet.creator.username){ %>

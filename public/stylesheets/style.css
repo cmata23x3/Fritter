@@ -1,5 +1,6 @@
 body {
 	padding: 50px;
+	background-color: hsla(193, 100%, 91%, 1) !important;
 }
 
 a {
@@ -10,9 +11,18 @@ li{
 	list-style: none;
 }
 
+.container{
+	margin: 20px auto;
+}
+
 .mainFormContainer{
 	margin: 0 auto;
-	max-width: 250px;
+	padding: 50px;
+	max-width: 450px;
+	min-width: 400px;
+	background-color: hsla(193, 0%, 70%, .65);
+	border-radius: 3px;
+	box-shadow: 5px 5px 10px #ccc;
 }
 
 #login{
@@ -31,8 +41,14 @@ li{
 	background-color: #080808;
 }
 
+#myTweet{
+	max-width: 60%;
+	min-width: 400px;
+	margin: 0 auto;
+}
+
 .tweetContainer{
-	/*background-color: hsl(190, 100%, 70%);*/
+	background-color: #fff;
 	max-width: 650px;
 	margin: 5px;
 	padding: 15px;
@@ -49,6 +65,10 @@ li{
 	margin: 0 auto;
 	max-width: 60%;
 	min-width: 400px;
+}
+
+.tweet-username{
+	font-weight: bold;
 }
 
 .editForm{
