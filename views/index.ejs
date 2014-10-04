@@ -4,7 +4,9 @@
 <body>
 	<% include partials/header.ejs %>
 	<div class="container">
-		<h3>Welcome to <%= title %>!</h3>
+		<div class="page-header">
+		<h1>Welcome to <%= title %>!</h1>
+	</div>
 		<div class="mainFormContainer">
 			<h5>If you're a new user, please sign up</h5>
 			<form action="/users/new" method="POST" >
