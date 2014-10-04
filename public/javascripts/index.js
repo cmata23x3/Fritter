@@ -5,9 +5,22 @@
 *
 */
 $(".editButton").click(function(){
-	console.log("clicked on edit!");
 	var parent = $(this).parent();
-	$(this).toggle();
+	$(this).html(toggleLabel($(this).text()));
+	//gotta find the text & set it to the input field
+	var text = parent.find($(".tweetText"));
+	parent.find($(".editTweetText")).val(text.text());
+	text.toggle();
+	//Now toggle form on & button off
 	parent.find($(".deleteForm")).toggle();
-	parent.find($(".editForm") ).toggle();
+	parent.find($(".editForm")).toggle();
 });
+
+function toggleLabel(current){
+	if(current === "Edit"){
+		return "Back";
+	}
+	else{
+		return "Edit";
+	}
+}

@@ -9,6 +9,7 @@ a {
 
 li{
 	list-style: none;
+	margin: 5px 0 0 5px;
 }
 
 .container{
@@ -65,6 +66,15 @@ li{
 	margin: 0 auto;
 	max-width: 60%;
 	min-width: 400px;
+	width: fill;
+}
+
+#tweetText{
+	margin-bottom: 2px;
+}
+
+.editTweetText{
+	margin-bottom: 15px;
 }
 
 .tweet-username{
@@ -75,16 +85,12 @@ li{
 	display:none;
 }
 
-.editTweetArea{
-	display: block;
-	margin: 0 auto;
-	width: 100%;
-	border-radius: 3px;
-	border-color: #adadad;
-	resize: none;
-}
-
 .left{
 	float: left;
 	margin-right:5px;
+}
+
+.right{
+	float:right;
+	margin-left: 5px;
 }
