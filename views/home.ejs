@@ -6,43 +6,50 @@
 </head>
 <body>
 	<% include partials/header.ejs %>
-	<div class="container">
+	<div id="home-page-container" class="container">
 		<div class="page-header">
 			<h1><%= title %></h1>
 		</div>
-		<div id="myTweet">
-			<form action="/tweets/new" method="POST" >
-				<div class="input-group">
-					<input type="text" name="body" class="form-control" placeholder="Anything to Say?" required/> 
-					<span class="input-group-btn"><button type="submit" class="btn btn-default">Tweet</button></span>
-				</div>
-			</form>
-		</div> <!-- My Tweet Input Box -->
-		<div id="tweetFeed">
-			<h3>Tweet Feed</h3>
-			<% tweets.forEach(function(tweet){ %>
-			<li>
-				<div class="tweetContainer"> 
-					<p><span class="tweet-username"><%= tweet.creator.username %></span> - <i><%= tweet.date %> </i>
-						<br> 
-						<p class="lead tweetText" ><%= tweet.body %></p>
-					</p>
-					<% if(name === tweet.creator.username){ %>
-					<form action="/tweets/delete" method="POST" class="deleteForm">
-						<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/>
-						<button type="submit" class="btn btn-default right">Delete</button>
-					</form>
-					<form action="/tweets/edit" method="POST" class="editForm">
-						<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/>
-						<input class="form-control editTweetText" name="body">
-						<button type="submit" class="btn btn-default submitEditButton right">Submit</button>
-					</form> <!-- Edit Form -->
-					<button class="btn btn-default editButton right">Edit</button>
-					<% } %>
-				</div> <!-- Tweet Container -->
-			</li>
-			<% }) %>
-		</div> <!-- Tweet Feed -->
+		<div id="left-pane">
+			<div id="myTweet">
+				<form action="/tweets/new" method="POST" >
+					<div class="input-group">
+						<input type="text" name="body" class="form-control" placeholder="Anything to Say?" required/> 
+						<span class="input-group-btn"><button type="submit" class="btn btn-default">Tweet</button></span>
+					</div>
+				</form>
+			</div> <!-- My Tweet Input Box -->
+			<div id="tweetFeed">
+				<h3>Tweet Feed</h3>
+				<% tweets.forEach(function(tweet){ %>
+				<li>
+					<div class="tweetContainer"> 
+						<p><span class="tweet-username"><%= tweet.creator.username %></span> - <i><%= tweet.date %> </i>
+							<br> 
+							<p class="lead tweetText" ><%= tweet.body %></p>
+						</p>
+						<% if(name === tweet.creator.username){ %>
+						<form action="/tweets/delete" method="POST" class="deleteForm">
+							<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/>
+							<button type="submit" class="btn btn-default right">Delete</button>
+						</form>
+						<form action="/tweets/edit" method="POST" class="editForm">
+							<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/>
+							<input class="form-control editTweetText" name="body">
+							<button type="submit" class="btn btn-default submitEditButton right">Submit</button>
+						</form> <!-- Edit Form -->
+						<button class="btn btn-default editButton right">Edit</button>
+						<% } %>
+					</div> <!-- Tweet Container -->
+				</li>
+				<% }) %>
+			</div> <!-- Tweet Feed -->
+		</div> <!-- Left Pane -->
+		<div id="right-pane">
+			<div id="other-users">
+				<% include partials/userlist.ejs%>
+			</div>
+		</div> <!-- Right Pane -->
 	</div> <!-- Container -->
 
 	<% include partials/footer.ejs %>

@@ -12,8 +12,26 @@ li{
 	margin: 5px 0 0 5px;
 }
 
+td{
+	padding-right: 15px !important;
+}
+
 .container{
 	margin: -10px auto;
+}
+
+#home-page-container{
+
+}
+
+#left-pane{
+	width: 70%; 
+	float: left;
+}
+
+#right-pane{
+	width:30%;
+	float: right;
 }
 
 .mainFormContainer{
