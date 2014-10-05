@@ -26,39 +26,24 @@ router.post('/new', Auth.isAuthenticated, function(req, res){
 /* DELETE a Tweet data */
 router.post('/delete', Auth.isAuthenticated, function(req, res){
 	console.log(req.body);
-	Tweet.findOne({'_id': req.body.id, }, function(err, tweet){
-		console.log("This is the tweet found: ", tweet);
-		if(tweet){
-			Tweet.remove(tweet, function(err, doc){
-				res.redirect('../home');
-			})
-		}
-		else{
-			redirect('../home');
-		}
-	})
+	var query = {'_id': req.body.id};
+	Tweet.findOneAndRemove(query, function(err, doc){
+		res.redirect('../home');
+	});
 });
 
 /* POST an edit to a Tweet data */
 router.post('/edit', Auth.isAuthenticated, function(req, res){
-	var update = {
-		body: req.body.body
-	}
-	Tweet.findOne({'_id': req.body.id, }, function(err, tweet){
-		if(tweet){
-			Tweet.update(tweet, update, function(err, numberAffected, raw){
-				if(err){
-					res.json(err);
-				}
-				else{
-					res.redirect('../home');
-				}
-			})
+	var query = {'_id': req.body.id };
+	var update = {body: req.body.body};
+	Tweet.findOneAndUpdate(query, update, function(err, tweet){
+		if(err){
+			res.json(err);
 		}
 		else{
-			redirect('../home');
-		}
-	})
+			res.redirect('../home');
+		}		
+	});
 });
 
 module.exports = router;

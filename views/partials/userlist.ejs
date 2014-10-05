@@ -1,0 +1,14 @@
+<!-- User List partial. Used to make the following display -->
+	<table style="width:100%" cellspacing="5">
+		<% userlist.forEach(function(user){ %>
+		<tr>
+			<td>
+				<form action="/users/follow" method="POST" class="">
+					<input type="hidden" class="form-control" value=<%=user._id%> name="id"/>
+					<button type="submit" class="btn btn-default submitEditButton right">Follow!</button>
+				</form> <!-- Edit Form -->
+			</td>
+			<td> <%= user.username %> - <i><%= user.name %> </i> <td>
+		</tr>
+		<% }) %>
+	</table>

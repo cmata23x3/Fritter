@@ -31,17 +31,18 @@ router.post('/login', Auth.isNotAuthenticated, function(req, res){
     			console.log("passwords don't match");
     			req.flash('info', 'Password does not match User Name');
     			res.redirect('/login');
-    		}else{//we're good; make name
-    			req.session.user = username;
-    			res.redirect('/home');
     		}
-    	}
+            else{//we're good; make name
+                req.session.user = username;
+                res.redirect('/home');
+            }
+        }
     	else{//no username found!
     		console.log("User name doesn't exist!");
     		req.flash('info', "User name doesn't exist!")
     		res.redirect('/login');
     	}
-  })
+    })
 });
 
 router.post('/logout', Auth.isAuthenticated, function(req, res){
@@ -59,14 +60,17 @@ router.get('/home', Auth.isAuthenticated, function(req, res) {
             res.json(err);
         }
         else{
-            res.render('home', {
-            "title": "Home",
-            "user": req.session.user,
-            "name": req.session.user,
-            "tweets": tweets
+            User.find({}, function(err, users){
+                res.render('home', {
+                    "title": "Home",
+                    "user": req.session.user,
+                    "name": req.session.user,
+                    "tweets": tweets,
+                    "userlist": users
+                });
             });
         }
-	});
+    });
 });
 
 module.exports = router;

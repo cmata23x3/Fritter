@@ -21,17 +21,31 @@ router.post('/new', Auth.isNotAuthenticated, function(req, res){
     });
 });
 
-/* GET Userlist page. */
-router.get('/list', function(req, res) {
-    // var collection = req.db.collection('usercollection');
-    User.find({},function(err,docs){
+/* POST new Follower data */
+router.post('/follow', Auth.isAuthenticated, function(req, res){
+    // var currentUser = User.where({username: req.session.user});
+    // var followingUser = User.where({username: req.body.username});
+
+    //make sure passes _id/username of desired freeterer
+    User.findOne({username: req.session.user}, function(err, currentUser){ //find my info
         if(err){
-            res.json(err);
+            console.log('Error happened: ', err);
+            res.redirect('../home');
         }
         else{
-            res.render('userlist', {
-            "title": "Users List",
-            "userlist" : docs
+            User.findOne({_id: req.body.id}, function(err, followingUser){ //find their info
+                if(followingUser){
+                    //update the my info and their info
+                    currentUser.update({$push: {following: followingUser._id}}).exec();
+                    followingUser.update({$push: {followers: currentUser._id}}).exec(function(err, docs){
+                        console.log('should be done adding users to following & followers');
+                        res.redirect('../home');
+                    });
+                }
+                else{
+                    console.log('Error happened: ', err);
+                    res.redirect('../home');
+                }
             });
         }
     });
