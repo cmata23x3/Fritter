@@ -23,9 +23,6 @@ router.post('/new', Auth.isNotAuthenticated, function(req, res){
 
 /* POST new Follower data */
 router.post('/follow', Auth.isAuthenticated, function(req, res){
-    // var currentUser = User.where({username: req.session.user});
-    // var followingUser = User.where({username: req.body.username});
-
     //make sure passes _id/username of desired freeterer
     User.findOne({username: req.session.user}, function(err, currentUser){ //find my info
         if(err){

@@ -1,6 +1,8 @@
 <!-- User List partial. Used to make the following display -->
-	<table style="width:100%" cellspacing="5">
-		<% userlist.forEach(function(user){ %>
+<div id="non-pane" class="follow-content-pane">
+	<label>Other Freeter</label>
+	<table id="non-table">
+		<% nonlist.forEach(function(user){ %>
 		<tr>
 			<td>
 				<form action="/users/follow" method="POST" class="">
@@ -12,3 +14,4 @@
 		</tr>
 		<% }) %>
 	</table>
+</div>

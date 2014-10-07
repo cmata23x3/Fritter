@@ -34,6 +34,25 @@ td{
 	float: right;
 }
 
+.follow-content-pane{
+	background-color: hsla(193, 0%, 70%, .65);
+	padding: 15px;
+	border-radius: 3px;
+	box-shadow: 5px 5px 10px #ccc;
+	margin-bottom: 10px;
+	height: 30%;
+	overflow: scroll;
+}
+
+#following-pane{
+
+}
+
+#follow-table{
+	width:100%;
+	cellspacing: 5;
+}
+
 .mainFormContainer{
 	margin: 0 auto;
 	padding: 50px;

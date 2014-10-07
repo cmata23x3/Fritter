@@ -1,0 +1,13 @@
+<div id="followers-pane" class="follow-content-pane">
+	<label>My Followers</label>
+	<table id="followers-table">
+		<% followers.forEach(function(user){ %>
+		<tr>
+			<td>
+				:)
+			</td>
+			<td> <%= user.username %> - <i><%= user.name %> </i> <td>
+		</tr>
+		<% }) %>
+	</table>
+</div>
