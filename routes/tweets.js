@@ -13,8 +13,7 @@ router.post('/new', Auth.isAuthenticated, function(req, res){
 		}).save(function(err, doc){
 			console.log("saving tweet");
 			if(err){
-				console.log("Got an error: ", err);
-				res.json(err);
+				res.render('error', {message: err, error: err});
 			}
 			else{    
 				res.redirect('../home');
@@ -38,7 +37,7 @@ router.post('/edit', Auth.isAuthenticated, function(req, res){
 	var update = {body: req.body.body};
 	Tweet.findOneAndUpdate(query, update, function(err, tweet){
 		if(err){
-			res.json(err);
+			res.render('error', {message: err, error: err});
 		}
 		else{
 			res.redirect('../home');

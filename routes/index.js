@@ -12,7 +12,7 @@ router.get('/', Auth.isNotAuthenticated, function(req, res) {
   	title: 'Fritter',
   	user: null,
     name: null
-  });
+});
 });
 
 /* GET login page*/
@@ -22,7 +22,7 @@ router.get('/login', Auth.isNotAuthenticated, function(req, res){
 		message: undefined,
 		user: null,
         name: null
-	});
+    });
 });
 
 /*POST login info */
@@ -50,7 +50,7 @@ router.post('/login', Auth.isNotAuthenticated, function(req, res){
     })
 });
 
-/*POST logiout info */
+/*POST logout info */
 router.post('/logout', Auth.isAuthenticated, function(req, res){
 	req.session.destroy();
 	res.redirect('/');
@@ -64,11 +64,7 @@ router.get('/home', Auth.isAuthenticated, function(req, res){
     .populate([{path:'following', select:'name username'}, {path:'followers', select:'name username'}])
     .exec(function(err, relation){
         if(err){
-            console.log("fuck");
-            res.render('error', {
-                message: err,
-                error: err
-            });
+            res.render('error', {message: err, error: err});
         }
         else{
             Tweet.find()
@@ -77,27 +73,17 @@ router.get('/home', Auth.isAuthenticated, function(req, res){
             .sort({date: -1}) //sort them descending order
             .exec(function(err, tweets){
                 if(err){
-                    console.log("fuck");
-                    res.render('error', {
-                        message: err,
-                        error: err
-                    });
+                    res.render('error', {message: err, error: err});
                 }
                 else{
-                    console.log("\n\nRelation.following: ", relation.following);
                     User.find()
                     // .where()
                     .and([{_id: { $nin: relation.following } }, { username: {$ne: req.session.user }}])
                     .exec(function(err, nons){
                         if(err){
-                            console.log("fuck");
-                            res.render('error', {
-                                message: err,
-                                error: err
-                            });
+                            res.render('error', {message: err, error: err});
                         }
                         else{
-                            console.log("\n\nThis is nons: ", nons);
                             res.render('home', {
                                 "title": "Home",
                                 "name": req.session.user,

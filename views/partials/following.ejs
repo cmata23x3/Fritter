@@ -4,12 +4,10 @@
 		<% following.forEach(function(user){ %>
 		<tr>
 			<td>
-				<!-- logic to remove followers???? -->
 				<form action="/users/unfollow" method="POST" class="">
 					<input type="hidden" class="form-control" value=<%=user._id%> name="id"/>
 					<button type="submit" class="btn btn-default submitEditButton right">Unfollow!</button>
-				</form>
-				<!-- Edit Form -->
+				</form><!-- Unfollow Form -->
 			</td>
 			<td> <%= user.username %> - <i><%= user.name %> </i> <td>
 		</tr>
