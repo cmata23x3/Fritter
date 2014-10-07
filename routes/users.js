@@ -42,4 +42,32 @@ router.post('/follow', Auth.isAuthenticated, function(req, res){
     });
 });
 
+router.post('/unfollow', Auth.isAuthenticated, function(req, res){
+    //remove person from my following list
+    Relation.findOneAndUpdate({"user": req.session._id}, {$pull: {following: req.body.id}}).exec(function(err, doc){
+        if(err){
+            console.log("fuckk!!!!!", err);
+            res.render('error', {
+                message: err,
+                error: err
+            });
+        }
+        else{
+            //remove me from their followers list
+            Relation.findOneAndUpdate({"user": req.body.id}, {$pull: {followers: req.session._id}}).exec(function(err, docs){
+                if(err){
+                    res.render('error', {
+                        message: err,
+                        error: err
+                    });
+                }
+                else{
+                    console.log('should be done removing users to following & followersc \r');
+                    res.redirect('../home');
+                }
+            });
+        }
+    });
+});
+
 module.exports = router;
