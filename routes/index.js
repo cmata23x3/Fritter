@@ -77,7 +77,6 @@ router.get('/home', Auth.isAuthenticated, function(req, res){
                 }
                 else{
                     User.find()
-                    // .where()
                     .and([{_id: { $nin: relation.following } }, { username: {$ne: req.session.user }}])
                     .exec(function(err, nons){
                         if(err){

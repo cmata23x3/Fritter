@@ -32,13 +32,19 @@
 						<form action="/tweets/delete" method="POST" class="deleteForm">
 							<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/>
 							<button type="submit" class="btn btn-default right">Delete</button>
-						</form>
+						</form> <!-- Delete Form -->
 						<form action="/tweets/edit" method="POST" class="editForm">
 							<input type="hidden" class="form-control" value=<%=tweet._id%> name="id"/>
 							<input class="form-control editTweetText" name="body">
 							<button type="submit" class="btn btn-default submitEditButton right">Submit</button>
 						</form> <!-- Edit Form -->
 						<button class="btn btn-default editButton right">Edit</button>
+						<% } else { %>
+						<form action="/tweets/retweet" method="POST" class="retweetForm">
+							<input type="hidden" class="form-control" value=<%=tweet.creator.username%> name="username"/>
+							<input type="hidden" class="form-control" value=<%= encodeURI(tweet.body) %> name="body"/>
+							<button type="submit" class="btn btn-default left">Retweet</button>
+						</form> <!-- Edit Form -->
 						<% } %>
 					</div> <!-- Tweet Container -->
 				</li>
