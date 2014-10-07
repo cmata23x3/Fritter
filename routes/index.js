@@ -35,11 +35,11 @@ router.post('/login', Auth.isNotAuthenticated, function(req, res){
     			res.redirect('/login');
     		}
             else{//we're good; make name
-                req.session.user = newUser.username;
-                req.session._id = newUser._id
-                res.redirect('/home');
-            }
+            req.session.user = newUser.username;
+            req.session._id = newUser._id
+            res.redirect('/home');
         }
+    }
     	else{//no username found!
     		console.log("User name doesn't exist!");
     		req.flash('info', "User name doesn't exist!")
@@ -55,32 +55,83 @@ router.post('/logout', Auth.isAuthenticated, function(req, res){
 });
 
 /*GET home page */
-router.get('/home', Auth.isAuthenticated, function(req, res) {
-	Tweet
-    .find({query: {}, $orderby: {date: -1}})
-    .populate('creator', 'username')
-    .exec(function(err, tweets){
+// router.get('/home', Auth.isAuthenticated, function(req, res) {
+// 	Tweet
+//     .find({query: {}, $orderby: {date: -1}})
+//     .populate('creator', 'username')
+//     .exec(function(err, tweets){
+//         if(err){
+//         	console.log('Error in tweets');
+//             res.json(err);
+//         }
+//         else{
+//             User.find({})
+//             // .populate([{path:'following', select:'name username'}, {path:'followers', select:'name username'}])
+//             .exec(function(err, users){
+//                 // var results = helper.modifyUsers(users, req.session.user);
+//                 res.render('home', {
+//                     "title": "Home",
+//                     "name": req.session.user,
+//                     "tweets": tweets,
+//                     "nonlist": users,
+//                     "followers": [],
+//                     "following": []
+//                 });
+//             });
+//         }
+//     });
+// });
+
+router.get('/home', Auth.isAuthenticated, function(req, res){
+    //Get followers & following
+    Relation
+    .findOne({user: req.session._id})
+    .populate([{path:'following', select:'name username'}, {path:'followers', select:'name username'}])
+    .exec(function(err, relation){
         if(err){
-        	console.log('Error in tweets');
-            res.json(err);
-        }
-        else{
-            User.find({})
-            // .populate([{path:'following', select:'name username'}, {path:'followers', select:'name username'}])
-            .exec(function(err, users){
-                // var results = helper.modifyUsers(users, req.session.user);
-                res.render('home', {
-                    "title": "Home",
-                    "user": req.session.user,
-                    "name": req.session.user,
-                    "tweets": tweets,
-                    "nonlist": users,
-                    "followers": [],
-                    "following": []
-                });
+            console.log("fuck");
+            res.render('error', {
+                message: err,
+                error: err
             });
         }
+        else{
+            Tweet.find()
+            .or([{creator: { $in : relation.following }}, {creator: req.session._id}])//get followers & my tweets
+            .populate('creator', 'username')//put in the usernames to the tweets
+            .sort({date: -1}) //sort them descending order
+            .exec(function(err, tweets){
+                if(err){
+                    console.log("fuck");
+                    res.render('error', {
+                        message: err,
+                        error: err
+                    });
+                }
+                else{
+                    console.log("\n\nThis is tweets: ", tweets);
+                    res.render('home', {
+                        "title": "Home",
+                        "name": req.session.user,
+                        "tweets": tweets,
+                        "nonlist": [],
+                        "followers": relation.followers,
+                        "following": relation.following
+                    });
+                }
+            });
+        }//closes the else of the top method
     });
 });
+
+// res.render('home', {
+//     "title": "Home",
+//     "user": req.session.user,
+//     "name": req.session.user,
+//     "tweets": tweets,
+//     "nonlist": users,
+//     "followers": [],
+//     "following": []
+// });
 
 module.exports = router;

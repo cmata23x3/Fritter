@@ -35,7 +35,7 @@ router.post('/follow', Auth.isAuthenticated, function(req, res){
         }
         else{
             Relation.findOneAndUpdate({"user": req.body.id}, {$push: {followers: req.session._id}}).exec(function(err, docs){
-                console.log('should be done adding users to following & followers');
+                console.log('should be done adding users to following & followersc \r');
                 res.redirect('../home');
             });
         }
