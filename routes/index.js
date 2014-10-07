@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../data/models/users.js');
-var Tweets = require('../data/models/tweets.js');
+var Tweet = require('../data/models/tweets.js');
+var Relation = require('../data/models/relations.js');
 var Auth = require('../util/auth.js');
 var helper = require('../util/helper.js')
 
@@ -34,7 +35,8 @@ router.post('/login', Auth.isNotAuthenticated, function(req, res){
     			res.redirect('/login');
     		}
             else{//we're good; make name
-                req.session.user = username;
+                req.session.user = newUser.username;
+                req.session._id = newUser._id
                 res.redirect('/home');
             }
         }
@@ -54,7 +56,7 @@ router.post('/logout', Auth.isAuthenticated, function(req, res){
 
 /*GET home page */
 router.get('/home', Auth.isAuthenticated, function(req, res) {
-	Tweets
+	Tweet
     .find({query: {}, $orderby: {date: -1}})
     .populate('creator', 'username')
     .exec(function(err, tweets){
@@ -64,17 +66,17 @@ router.get('/home', Auth.isAuthenticated, function(req, res) {
         }
         else{
             User.find({})
-            .populate([{path:'following', select:'name username'}, {path:'followers', select:'name username'}])
+            // .populate([{path:'following', select:'name username'}, {path:'followers', select:'name username'}])
             .exec(function(err, users){
-                var results = helper.modifyUsers(users, req.session.user);
+                // var results = helper.modifyUsers(users, req.session.user);
                 res.render('home', {
                     "title": "Home",
                     "user": req.session.user,
                     "name": req.session.user,
                     "tweets": tweets,
-                    "nonlist": results[0],
-                    "followers": results[1],
-                    "following": results[2]
+                    "nonlist": users,
+                    "followers": [],
+                    "following": []
                 });
             });
         }

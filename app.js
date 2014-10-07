@@ -63,7 +63,7 @@ app.use(flash());
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/tweets', tweets)
+app.use('/tweets', tweets);
 
 app.use(function(req, res, next){
 	res.locals.session = req.session;
