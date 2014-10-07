@@ -8,4 +8,4 @@ For the second project in 6.170, Conway's Game of Life was assigned. In this imp
 ##Website
 1. The live website can be reached at: http://fritter-cmata.rhcloud.com
 
-The 2.1 version of the website can now be found at: http://fritter0-cmata.rhcloud.com
+The 2.1 version of the website can now be found at: http://refritter-cmata.rhcloud.com

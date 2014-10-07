@@ -40,7 +40,7 @@ td{
 	border-radius: 3px;
 	box-shadow: 5px 5px 10px #ccc;
 	margin-bottom: 10px;
-	height: 30%;
+	max-height: 200px;
 	overflow: scroll;
 }
 
