@@ -1,8 +1,9 @@
 //This is the file to use jquery
 
-/**
-* 
-*
+/*
+* Method handles the click functionalitu of the edit button found
+* on each of the tweets in the tweet feed. This method uses jQuery 
+* to change the view to show the edit form and hide the delete form. 
 */
 $(".editButton").click(function(){
 	var parent = $(this).parent();
@@ -16,6 +17,15 @@ $(".editButton").click(function(){
 	parent.find($(".editForm")).toggle();
 });
 
+/*
+* Method is called when to change the label of the 
+* edit/back button. Here the method checks the current label name
+* and returns the opposite string. Private method
+*
+* @method toggleLabel
+* @param {String} current String of the current label on the button.
+* @return {String} Returns String of the new button label value. 
+*/
 function toggleLabel(current){
 	if(current === "Edit"){
 		return "Back";

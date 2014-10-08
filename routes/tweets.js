@@ -40,9 +40,6 @@ router.post('/retweet', Auth.isAuthenticated, function(req, res){
 	});
 });
 
-/* POST a favoriting! */
-
-
 /* DELETE a Tweet data */
 router.post('/delete', Auth.isAuthenticated, function(req, res){
 	Tweet.findOneAndRemove({'_id': req.body.id}, function(err, doc){
